@@ -1,0 +1,8 @@
+<nav>
+    <ul>
+        <li><a href="/">Top</a></li>
+        <% years.forEach((year) => { %>
+            <li><a href="/<%- year %>"><%- year %></a></li>
+        <% }) %>
+    </ul>
+</nav>

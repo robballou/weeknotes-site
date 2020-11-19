@@ -1,0 +1,41 @@
+{
+    "name": "weeknotes-site",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "PORT=3000 nodemon -e ejs,ts -w src -x ts-node src/index.ts",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/debug": "^4.1.5",
+        "@types/ejs": "^3.0.5",
+        "@types/express": "^4.17.9",
+        "@types/marked": "^1.1.0",
+        "@types/node": "^14.14.7",
+        "@types/nodemon": "^1.19.0",
+        "@types/react": "^16.9.56",
+        "@types/react-dom": "^16.9.9",
+        "@types/rimraf": "^3.0.0",
+        "@typescript-eslint/eslint-plugin": "^4.8.0",
+        "@typescript-eslint/parser": "^4.8.0",
+        "debug": "^4.2.0",
+        "eslint": "^7.13.0",
+        "eslint-plugin-react": "^7.21.5",
+        "nodemon": "^2.0.6",
+        "rimraf": "^3.0.2",
+        "ts-node": "^9.0.0",
+        "typescript": "^4.0.5"
+    },
+    "dependencies": {
+        "ejs": "^3.1.5",
+        "express": "^4.17.1",
+        "highlight.js": "^10.4.0",
+        "marked": "^1.2.4",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1"
+    }
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('head.ejs') %>
+    <title>Weeknotes: <%- title %></title>
+    <base href="<%- base %>">
+</head>
+<body>
+    <div class="brand">
+        <a href="https://robballou.com" rel="me">rob<span>ballou</span></a>
+    </div>
+    <header><h1><a href="/">Weeknotes</a></h1></header>
+    <%- include('nav.ejs', { years }) %>
+    <article>
+        <%- content %>
+
+    </article>
+    <%- include('footer.ejs', { link }) %>
+</body>
+</html>

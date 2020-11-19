@@ -1,0 +1,150 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    /* --main-nav-hue: 196; */
+    /* --main-nav: hsl(196, 100, 32.5); */
+    /* --main-nav-dark: hsl(196, 100, 22.5); rga(0, 84, 115) */
+    --main-nav: rgb(0, 122, 166);
+    --main-nav-dark: rgb(0, 84, 115);
+}
+
+html {
+    background-color: #efefef;
+    font-size: 16px;
+    font-family: ''
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+a:link, a:hover, a:visited {
+    color: blue;
+}
+
+header, article, nav, footer, .brand {
+    background: #fff;
+    max-width: 1024px;
+    padding: 0 0.5em;
+    margin: 0 auto;
+}
+
+.brand {
+    font-family: Baskerville, Georgia, 'Times New Roman', Times, serif;
+    color: #fff;
+    background-color: #2f3e53;
+    text-align: right;
+}
+.brand span {
+    color: #fe3;
+}
+.brand a:link, .brand a:visited {
+    display: inline-block;
+    padding: 0.5em;
+    color: #fff;
+    text-decoration: none;
+}
+
+body > header {
+    text-align: right;
+    font-size: 2rem;
+}
+body > header > h1 {
+    font-weight: normal;
+    letter-spacing: 1px;
+    font-style: italic;
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+h1 a:link, h1 a:visited {
+    text-decoration: none;
+    color: #000;
+}
+
+h2 {
+    font-size: 1.3em;
+    color: #333;
+}
+
+article {
+    min-height: 50vh;
+    padding: 1em 1.5em;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+article p, article ul {
+    line-height: 1.4rem;
+}
+
+article pre, article code {
+    color: #333;
+    background-color: #eee;
+    /* font-family: Monaco, 'Courier New', Courier, monospace; */
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 0.9rem;
+}
+
+article pre {
+    display: block;
+    padding: 1em;
+    margin: 1em;
+    overflow-x: auto;
+}
+
+header {
+    padding: 1em 0.5em 0.1em;
+}
+
+header, nav {
+    background-color: #ddd;
+}
+/*
+header, h1, h2 {
+    font-family: Baskerville, Georgia, 'Times New Roman', Times, serif;
+} */
+
+nav {
+    border-bottom: 1px solid #ccc;
+    /* background-color: hsl(var(--main-nav-hue), 100, 32.5); */
+    background-color: var(--main-nav);
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav li a {
+    display: inline-block;
+    padding: 1em;
+    transition: background-color 300ms;
+}
+
+nav li a:link, nav li a:visited {
+    color: #fff;
+}
+nav li a:hover, nav li a:focus {
+    background-color: var(--main-nav-dark);
+}
+
+.source {
+    font-size: 0.9rem;
+}
+
+footer {
+    border-top: 1px solid #ccc;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    display: fixed;
+    bottom: 0;
+    padding: 1.5em 1.5em 1em;
+}
