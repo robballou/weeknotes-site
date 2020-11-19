@@ -1,4 +1,5 @@
 import Express from 'express';
+import fs from 'fs';
 import path from 'path';
 
 import { getMarkdownData, getYears } from './lib/data';
@@ -18,6 +19,13 @@ app.get('/', async (req: Express.Request, res: Express.Response) => {
 app.get('/favicon.ico', (req: Express.Request, res: Express.Response) => {
     res.status(404).send();
 });
+
+app.get('/build', (req: Express.Request, res: Express.Response) => {
+    fs.readFile(path.join(__dirname, 'build'), 'utf8', (err, data) => {
+        res.send(data ?? '');
+    });
+});
+
 app.get('/main.css', (req: Express.Request, res: Express.Response) => {
     res.sendFile(path.join(__dirname, 'main.css'));
 });
@@ -51,4 +59,33 @@ app.get('/:year/:week', validYear, validWeek, async (req: Express.Request, res: 
         link: `https://github.com/robballou/weeknotes/blob/main/${itemPath}.md`,
     });
     res.send(data);
+});
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+app.use(async (err: any, req: Express.Request, res: Express.Response, next: Function) => {
+    console.error(err);
+    if (err.message && err.message.includes('Invalid year')) {
+        const data = await renderFile(path.join(__dirname, 'error.ejs'), {
+            years: await getYears(),
+            title: 'Page not found',
+            content: 'Page not found',
+            date: '',
+            base: `/${req.params.year}/`,
+            link: '',
+        });
+        return res
+            .status(404)
+            .send(data)
+        ;
+    }
+
+    const data = await renderFile(path.join(__dirname, 'error.ejs'), {
+        years: await getYears(),
+        title: 'Server error',
+        content: 'Server error',
+        date: '',
+        base: `/${req.params.year}/`,
+        link: '',
+    });
+    return res.status(500).send(data);
 });

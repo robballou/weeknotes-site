@@ -13,7 +13,17 @@
     </header>
     <%- include('nav.ejs', { years }) %>
     <article>
-        <p>Select a year above</p>
+        <p>This site is a collection of notes by the week, mostly technical in nature.</p>
+
+        <h2>Years</h2>
+        <ul>
+            <% years.forEach((year) => { %>
+                <li><a href="/<%- year %>"><%- year %></a></li>
+            <% }) %>
+        </ul>
+
+        <h2>Colophon</h2>
+        <p>This site is made with Typescript, Express, <a href="https://github.com/robballou/weeknotes" rel="me">with notes in a Git repo</a>, and Docker. You can <a href="https://github.com/robballou/weeknotes-site" rel="me">view the source for this site on Github</a>.</p>
     </article>
     <%- include('footer.ejs', { link }) %>
 </body>

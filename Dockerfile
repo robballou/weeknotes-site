@@ -26,6 +26,6 @@ COPY *.json /app/
 COPY src/*.ejs /app/src/
 COPY src/*.css /app/src/
 
-RUN npm ci
+RUN npm ci --production && date > /app/src/build
 
 ENTRYPOINT [ "node", "src/index.js" ]
