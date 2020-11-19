@@ -16,6 +16,8 @@ RUN npm install && \
 
 FROM node:14-alpine
 
+ARG BUILD_DATE
+
 EXPOSE 80
 
 WORKDIR /app
@@ -26,6 +28,6 @@ COPY *.json /app/
 COPY src/*.ejs /app/src/
 COPY src/*.css /app/src/
 
-RUN npm ci --production && date > /app/src/build
+RUN npm ci --production && echo "${BUILD_DATE}" > /app/src/build
 
 ENTRYPOINT [ "node", "src/index.js" ]

@@ -4,6 +4,7 @@ import path from 'path';
 
 import { getMarkdownData, getYears } from './lib/data';
 import { renderFile } from './lib/ejs';
+import { return404, return500 } from './lib/errors';
 import { validWeek, validYear } from './lib/middleware';
 
 export const app = Express();
@@ -22,7 +23,8 @@ app.get('/favicon.ico', (req: Express.Request, res: Express.Response) => {
 
 app.get('/build', (req: Express.Request, res: Express.Response) => {
     fs.readFile(path.join(__dirname, 'build'), 'utf8', (err, data) => {
-        res.send(data ?? '');
+        console.error(err);
+        res.send(data ?? 'unknown');
     });
 });
 
@@ -50,6 +52,11 @@ app.get('/:year/:week', validYear, validWeek, async (req: Express.Request, res: 
 
     const itemPath = `${req.params.year}/${req.params.week.replace('.md', '')}`;
     const markdownData = await getMarkdownData(itemPath);
+
+    if (markdownData === null) {
+        return return404(req, res);
+    }
+
     const data = await renderFile(path.join(__dirname, 'article.ejs'), {
         years: await getYears(),
         title: itemPath,
@@ -63,29 +70,11 @@ app.get('/:year/:week', validYear, validWeek, async (req: Express.Request, res: 
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 app.use(async (err: any, req: Express.Request, res: Express.Response, next: Function) => {
+    console.error(`Error for ${req.originalUrl} (${req.method})`);
     console.error(err);
-    if (err.message && err.message.includes('Invalid year')) {
-        const data = await renderFile(path.join(__dirname, 'error.ejs'), {
-            years: await getYears(),
-            title: 'Page not found',
-            content: 'Page not found',
-            date: '',
-            base: `/${req.params.year}/`,
-            link: '',
-        });
-        return res
-            .status(404)
-            .send(data)
-        ;
+    if (err.message && /Invalid (year|week)/.test(err.message)) {
+        return return404(req, res);
     }
 
-    const data = await renderFile(path.join(__dirname, 'error.ejs'), {
-        years: await getYears(),
-        title: 'Server error',
-        content: 'Server error',
-        date: '',
-        base: `/${req.params.year}/`,
-        link: '',
-    });
-    return res.status(500).send(data);
+    return return500(req, res);
 });
