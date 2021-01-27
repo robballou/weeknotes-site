@@ -12,7 +12,7 @@ export async function getYears(): Promise<string[]> {
     }
 
     const tree = await getTree();
-    yearsPromise = Promise.resolve(Object.keys(tree));
+    yearsPromise = Promise.resolve(Object.keys(tree).reverse());
     return yearsPromise;
 }
 

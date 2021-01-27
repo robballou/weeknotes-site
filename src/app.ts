@@ -6,6 +6,7 @@ import { getMarkdownData, getYears } from './lib/data';
 import { renderFile } from './lib/ejs';
 import { return404, return500 } from './lib/errors';
 import { validWeek, validYear } from './lib/middleware';
+import { getTitle } from './lib/util';
 
 export const app = Express();
 
@@ -59,7 +60,7 @@ app.get('/:year/:week', validYear, validWeek, async (req: Express.Request, res: 
 
     const data = await renderFile(path.join(__dirname, 'article.ejs'), {
         years: await getYears(),
-        title: itemPath,
+        title: getTitle(itemPath),
         content: markdownData,
         date: '',
         base: `/${req.params.year}/`,

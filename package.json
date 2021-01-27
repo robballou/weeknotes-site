@@ -5,7 +5,9 @@
     "main": "index.js",
     "scripts": {
         "build": "tsc",
+        "build:docker": "docker build -t weeknotes --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') .",
         "start": "PORT=3000 nodemon -e ejs,ts -w src -x ts-node src/index.ts",
+        "start:docker": "docker run -p 8888:80 weeknotes",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
