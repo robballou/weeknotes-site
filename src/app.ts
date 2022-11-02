@@ -10,10 +10,15 @@ import { getTitle } from './lib/util';
 
 export const app = Express();
 
+function currentYear() {
+    return (new Date()).getFullYear();
+}
+
 app.get('/', async (req: Express.Request, res: Express.Response) => {
     const data = await renderFile(path.join(__dirname, 'index.ejs'), {
         years: await getYears(),
         link: '',
+        year: currentYear()
     });
     res.send(data);
 });
@@ -42,6 +47,7 @@ app.get('/:year', validYear, async (req: Express.Request, res: Express.Response)
         date: '',
         base: `/${req.params.year}/`,
         link: '',
+        year: currentYear()
     });
     res.send(data);
 });
@@ -65,6 +71,7 @@ app.get('/:year/:week', validYear, validWeek, async (req: Express.Request, res: 
         date: '',
         base: `/${req.params.year}/`,
         link: `https://github.com/robballou/weeknotes/blob/main/${itemPath}.md`,
+        year: currentYear()
     });
     res.send(data);
 });
